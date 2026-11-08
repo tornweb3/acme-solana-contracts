@@ -1,0 +1,11 @@
+import * as ns from "@anchor-lang/core";
+import type { Idl } from "@anchor-lang/core";
+declare const anchor: typeof ns;
+export declare const BN: typeof ns.BN;
+export type BN = InstanceType<typeof anchor.BN>;
+export declare const Program: typeof ns.Program;
+export type Program<T extends Idl = Idl> = ns.Program<T>;
+export declare const BorshCoder: typeof ns.BorshCoder;
+export declare const EventParser: typeof ns.EventParser;
+export declare const utils: typeof ns.utils;
+export type { Idl, IdlAccounts, IdlEvents, IdlTypes } from "@anchor-lang/core";

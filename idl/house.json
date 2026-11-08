@@ -1,0 +1,2760 @@
+{
+  "address": "5rV9yXr14uvsxJZnNqQRRwX7ZZ3FWNqZcGyrz3B4YXgw",
+  "metadata": {
+    "name": "house",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "ACME house: the treasury split, the prize vault and the upgrade shop"
+  },
+  "instructions": [
+    {
+      "name": "accept_admin",
+      "discriminator": [
+        112,
+        42,
+        45,
+        90,
+        116,
+        181,
+        13,
+        170
+      ],
+      "accounts": [
+        {
+          "name": "new_admin",
+          "signer": true
+        },
+        {
+          "name": "house",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "add_mint",
+      "discriminator": [
+        171,
+        222,
+        111,
+        37,
+        60,
+        166,
+        208,
+        108
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "house"
+          ]
+        },
+        {
+          "name": "house",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "price_table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  105,
+                  99,
+                  101
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "mint_key"
+              }
+            ]
+          }
+        },
+        {
+          "name": "totals",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  111,
+                  116,
+                  97,
+                  108,
+                  115
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "mint_key"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint",
+          "docs": [
+            "Absent when `mint_key` is NATIVE_SOL."
+          ],
+          "optional": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "mint_key",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "apply_fund_caps",
+      "discriminator": [
+        119,
+        186,
+        43,
+        228,
+        79,
+        5,
+        205,
+        244
+      ],
+      "accounts": [
+        {
+          "name": "house",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "apply_split",
+      "discriminator": [
+        52,
+        174,
+        230,
+        206,
+        227,
+        242,
+        206,
+        174
+      ],
+      "accounts": [
+        {
+          "name": "house",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "apply_token_mint",
+      "discriminator": [
+        174,
+        153,
+        19,
+        222,
+        210,
+        23,
+        255,
+        143
+      ],
+      "accounts": [
+        {
+          "name": "house",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "pending",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  111,
+                  107,
+                  101,
+                  110
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "buy_lot",
+      "discriminator": [
+        13,
+        244,
+        229,
+        160,
+        48,
+        32,
+        34,
+        63
+      ],
+      "accounts": [
+        {
+          "name": "buyer",
+          "docs": [
+            "Burns the price from their own account; receives the lot (SOL: here)."
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "house",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "auction",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  117,
+                  99,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "auction.lot_mint",
+                "account": "Auction"
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_totals",
+          "docs": [
+            "The project token's running totals (what was burned)."
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  111,
+                  116,
+                  97,
+                  108,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "house.token_mint",
+                "account": "HouseConfig"
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_mint",
+          "docs": [
+            "The project token's mint: the burn takes its supply down."
+          ],
+          "writable": true
+        },
+        {
+          "name": "buyer_tokens",
+          "docs": [
+            "The buyer's account of the project token, burned from."
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "buyback",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  117,
+                  121,
+                  98,
+                  97,
+                  99,
+                  107
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "lot_mint",
+          "docs": [
+            "Token lots: the lot's mint, the vault's account of it, the buyer's",
+            "(owned by the buyer) and their token program."
+          ],
+          "optional": true
+        },
+        {
+          "name": "buyback_tokens",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "buyer_lot_tokens",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "lot_token_program",
+          "optional": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "max_price",
+          "type": "u64"
+        },
+        {
+          "name": "min_lot",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "buy_upgrade",
+      "discriminator": [
+        136,
+        43,
+        33,
+        208,
+        15,
+        32,
+        65,
+        61
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "Pays the upgrades account's rent on a first purchase (the race server's",
+            "sponsor, or the owner)."
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "house",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "price_table",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  105,
+                  99,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "price_table.mint",
+                "account": "PriceTable"
+              }
+            ]
+          }
+        },
+        {
+          "name": "upgrades",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  112,
+                  103,
+                  114,
+                  97,
+                  100,
+                  101,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "treasury",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  114,
+                  101,
+                  97,
+                  115,
+                  117,
+                  114,
+                  121
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint",
+          "optional": true
+        },
+        {
+          "name": "owner_tokens",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "treasury_tokens",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "token_program",
+          "optional": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "dept",
+          "type": "u8"
+        },
+        {
+          "name": "level",
+          "type": "u8"
+        },
+        {
+          "name": "max_price",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "fund_cup",
+      "discriminator": [
+        109,
+        48,
+        32,
+        166,
+        249,
+        72,
+        62,
+        103
+      ],
+      "accounts": [
+        {
+          "name": "keeper",
+          "docs": [
+            "Pays the cup's rent."
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "house",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "prize",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  105,
+                  122,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "totals",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  111,
+                  116,
+                  97,
+                  108,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "totals.mint",
+                "account": "Totals"
+              }
+            ]
+          }
+        },
+        {
+          "name": "arena_config",
+          "writable": true
+        },
+        {
+          "name": "ruleset"
+        },
+        {
+          "name": "allowed_mint"
+        },
+        {
+          "name": "cup",
+          "writable": true
+        },
+        {
+          "name": "mint",
+          "optional": true
+        },
+        {
+          "name": "escrow_tokens",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "prize_tokens",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "token_program",
+          "optional": true
+        },
+        {
+          "name": "arena_program",
+          "address": "G8hRPxkadXhZcuyeH7vWCqmfAqfWNAuxJnBftPezcUdK"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "id",
+          "type": "u64"
+        },
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "CupParams"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "house",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "treasury",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  114,
+                  101,
+                  97,
+                  115,
+                  117,
+                  114,
+                  121
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "prize",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  105,
+                  122,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "buyback",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  117,
+                  121,
+                  98,
+                  97,
+                  99,
+                  107
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "program",
+          "address": "5rV9yXr14uvsxJZnNqQRRwX7ZZ3FWNqZcGyrz3B4YXgw"
+        },
+        {
+          "name": "program_data",
+          "docs": [
+            "Only the upgrade authority may bootstrap the house."
+          ]
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "HouseParams"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "propose_admin",
+      "discriminator": [
+        121,
+        214,
+        199,
+        212,
+        87,
+        39,
+        117,
+        234
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true,
+          "relations": [
+            "house"
+          ]
+        },
+        {
+          "name": "house",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "new_admin",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "propose_split",
+      "discriminator": [
+        38,
+        104,
+        30,
+        96,
+        107,
+        245,
+        76,
+        252
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true,
+          "relations": [
+            "house"
+          ]
+        },
+        {
+          "name": "house",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "split",
+          "type": {
+            "defined": {
+              "name": "Split"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "propose_token_mint",
+      "discriminator": [
+        108,
+        142,
+        4,
+        218,
+        236,
+        118,
+        124,
+        253
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "house"
+          ]
+        },
+        {
+          "name": "house",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "pending",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  111,
+                  107,
+                  101,
+                  110
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint",
+          "docs": [
+            "The project token's mint itself."
+          ]
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "set_auction_floor",
+      "discriminator": [
+        222,
+        7,
+        9,
+        59,
+        159,
+        23,
+        206,
+        16
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "house"
+          ]
+        },
+        {
+          "name": "house",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "auction",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  117,
+                  99,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "lot_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "lot_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "min_lot",
+          "type": "u64"
+        },
+        {
+          "name": "min_price",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "set_fund_caps",
+      "discriminator": [
+        21,
+        210,
+        213,
+        71,
+        22,
+        114,
+        133,
+        201
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true,
+          "relations": [
+            "house"
+          ]
+        },
+        {
+          "name": "house",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "fund_max_bps",
+          "type": "u16"
+        },
+        {
+          "name": "fund_every_secs",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "set_paused",
+      "discriminator": [
+        91,
+        60,
+        125,
+        192,
+        176,
+        225,
+        166,
+        218
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true,
+          "relations": [
+            "house"
+          ]
+        },
+        {
+          "name": "house",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "paused",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "set_prices",
+      "discriminator": [
+        155,
+        1,
+        215,
+        185,
+        100,
+        8,
+        177,
+        186
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "docs": [
+            "The admin alone: levels are never refunded, so a price only the admin can",
+            "set is a price a leaked server key can't drop to nothing."
+          ],
+          "signer": true
+        },
+        {
+          "name": "house",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "price_table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  105,
+                  99,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "price_table.mint",
+                "account": "PriceTable"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "prices",
+          "type": {
+            "array": [
+              {
+                "array": [
+                  "u64",
+                  5
+                ]
+              },
+              6
+            ]
+          }
+        },
+        {
+          "name": "enabled",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "set_roles",
+      "discriminator": [
+        119,
+        86,
+        129,
+        161,
+        55,
+        23,
+        250,
+        12
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true,
+          "relations": [
+            "house"
+          ]
+        },
+        {
+          "name": "house",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "keeper",
+          "type": "pubkey"
+        },
+        {
+          "name": "ops_wallet",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "start_auction",
+      "discriminator": [
+        255,
+        2,
+        149,
+        136,
+        148,
+        125,
+        65,
+        195
+      ],
+      "accounts": [
+        {
+          "name": "keeper",
+          "signer": true
+        },
+        {
+          "name": "house",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "auction",
+          "docs": [
+            "Made with the admin's lowest rate (`set_auction_floor`): none, no auction."
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  117,
+                  99,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "lot_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "buyback",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  117,
+                  121,
+                  98,
+                  97,
+                  99,
+                  107
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "buyback_tokens",
+          "docs": [
+            "Token lots: the buyback vault's account of `lot_mint`."
+          ],
+          "optional": true
+        }
+      ],
+      "args": [
+        {
+          "name": "lot_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "lot",
+          "type": "u64"
+        },
+        {
+          "name": "start_price",
+          "type": "u64"
+        },
+        {
+          "name": "floor_price",
+          "type": "u64"
+        },
+        {
+          "name": "decline_secs",
+          "type": "u32"
+        },
+        {
+          "name": "run_secs",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "sweep",
+      "discriminator": [
+        40,
+        23,
+        234,
+        175,
+        14,
+        61,
+        154,
+        177
+      ],
+      "accounts": [
+        {
+          "name": "house",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  117,
+                  115,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "treasury",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  114,
+                  101,
+                  97,
+                  115,
+                  117,
+                  114,
+                  121
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "prize",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  105,
+                  122,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "buyback",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  117,
+                  121,
+                  98,
+                  97,
+                  99,
+                  107
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "ops_wallet",
+          "writable": true
+        },
+        {
+          "name": "totals",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  111,
+                  116,
+                  97,
+                  108,
+                  115
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "mint_key"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint",
+          "docs": [
+            "Token sweeps: the mint (writable: the project token's share is burned) and",
+            "the four parties' token accounts of it (the buyback's only when it gets a",
+            "share that isn't burned)."
+          ],
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "treasury_tokens",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "ops_tokens",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "prize_tokens",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "buyback_tokens",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "token_program",
+          "optional": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "mint_key",
+          "type": "pubkey"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Auction",
+      "discriminator": [
+        218,
+        94,
+        247,
+        242,
+        126,
+        233,
+        131,
+        81
+      ]
+    },
+    {
+      "name": "HouseConfig",
+      "discriminator": [
+        194,
+        237,
+        216,
+        79,
+        135,
+        254,
+        7,
+        212
+      ]
+    },
+    {
+      "name": "PendingToken",
+      "discriminator": [
+        235,
+        175,
+        151,
+        228,
+        131,
+        159,
+        37,
+        181
+      ]
+    },
+    {
+      "name": "PriceTable",
+      "discriminator": [
+        249,
+        145,
+        86,
+        106,
+        7,
+        90,
+        110,
+        77
+      ]
+    },
+    {
+      "name": "Totals",
+      "discriminator": [
+        200,
+        56,
+        239,
+        35,
+        57,
+        206,
+        72,
+        74
+      ]
+    },
+    {
+      "name": "Upgrades",
+      "discriminator": [
+        124,
+        166,
+        118,
+        161,
+        178,
+        46,
+        191,
+        24
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "AuctionFloorSet",
+      "discriminator": [
+        189,
+        232,
+        43,
+        222,
+        27,
+        171,
+        75,
+        53
+      ]
+    },
+    {
+      "name": "AuctionStarted",
+      "discriminator": [
+        126,
+        97,
+        193,
+        56,
+        72,
+        162,
+        162,
+        64
+      ]
+    },
+    {
+      "name": "CupFunded",
+      "discriminator": [
+        213,
+        228,
+        143,
+        250,
+        181,
+        27,
+        73,
+        78
+      ]
+    },
+    {
+      "name": "HouseChanged",
+      "discriminator": [
+        96,
+        221,
+        188,
+        133,
+        132,
+        26,
+        203,
+        108
+      ]
+    },
+    {
+      "name": "LotBought",
+      "discriminator": [
+        203,
+        144,
+        224,
+        166,
+        111,
+        44,
+        231,
+        154
+      ]
+    },
+    {
+      "name": "PricesSet",
+      "discriminator": [
+        245,
+        27,
+        72,
+        221,
+        199,
+        127,
+        134,
+        160
+      ]
+    },
+    {
+      "name": "SplitApplied",
+      "discriminator": [
+        225,
+        133,
+        252,
+        170,
+        157,
+        41,
+        49,
+        221
+      ]
+    },
+    {
+      "name": "SplitProposed",
+      "discriminator": [
+        79,
+        18,
+        65,
+        165,
+        147,
+        244,
+        179,
+        235
+      ]
+    },
+    {
+      "name": "Swept",
+      "discriminator": [
+        254,
+        138,
+        9,
+        198,
+        192,
+        61,
+        165,
+        135
+      ]
+    },
+    {
+      "name": "TokenMintApplied",
+      "discriminator": [
+        118,
+        73,
+        115,
+        15,
+        37,
+        205,
+        31,
+        215
+      ]
+    },
+    {
+      "name": "TokenMintProposed",
+      "discriminator": [
+        207,
+        31,
+        212,
+        170,
+        161,
+        126,
+        77,
+        29
+      ]
+    },
+    {
+      "name": "UpgradeBought",
+      "discriminator": [
+        142,
+        82,
+        129,
+        123,
+        102,
+        228,
+        164,
+        240
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Unauthorized",
+      "msg": "Signer is not allowed to do this"
+    },
+    {
+      "code": 6001,
+      "name": "Paused",
+      "msg": "Sales are paused"
+    },
+    {
+      "code": 6002,
+      "name": "InvalidParams",
+      "msg": "A parameter is out of range"
+    },
+    {
+      "code": 6003,
+      "name": "InvalidSplit",
+      "msg": "The split must add up to 10000 bps"
+    },
+    {
+      "code": 6004,
+      "name": "TooEarly",
+      "msg": "The timelock has not passed yet"
+    },
+    {
+      "code": 6005,
+      "name": "NothingPending",
+      "msg": "No split change is pending"
+    },
+    {
+      "code": 6006,
+      "name": "NotPendingAdmin",
+      "msg": "No admin change is pending for this key"
+    },
+    {
+      "code": 6007,
+      "name": "AlreadySet",
+      "msg": "This can only be set once"
+    },
+    {
+      "code": 6008,
+      "name": "TokenAccountsMismatch",
+      "msg": "Token accounts were missing, extra, or did not match"
+    },
+    {
+      "code": 6009,
+      "name": "NotForSale",
+      "msg": "Not for sale in this token"
+    },
+    {
+      "code": 6010,
+      "name": "WrongLevel",
+      "msg": "Levels are bought one at a time, in order"
+    },
+    {
+      "code": 6011,
+      "name": "PriceTooHigh",
+      "msg": "The price is above the buyer's limit"
+    },
+    {
+      "code": 6012,
+      "name": "FundTooLarge",
+      "msg": "The guarantee is above what the prize vault may fund"
+    },
+    {
+      "code": 6013,
+      "name": "FundTooSoon",
+      "msg": "Cups were funded too recently"
+    },
+    {
+      "code": 6014,
+      "name": "Overflow",
+      "msg": "Arithmetic overflow"
+    },
+    {
+      "code": 6015,
+      "name": "NotABoardCup",
+      "msg": "The prize vault funds only free board cups"
+    },
+    {
+      "code": 6016,
+      "name": "TransferFeeTooHigh",
+      "msg": "The token's transfer fee is above what the house accepts"
+    },
+    {
+      "code": 6017,
+      "name": "NoToken",
+      "msg": "There is no project token yet"
+    },
+    {
+      "code": 6018,
+      "name": "NotTheToken",
+      "msg": "That isn't the project token"
+    },
+    {
+      "code": 6019,
+      "name": "AuctionRunning",
+      "msg": "An auction of this token is still running"
+    },
+    {
+      "code": 6020,
+      "name": "AuctionTooSoon",
+      "msg": "The last auction of this token started less than a day ago"
+    },
+    {
+      "code": 6021,
+      "name": "NoAuction",
+      "msg": "Nothing is for sale in this auction"
+    },
+    {
+      "code": 6022,
+      "name": "LotTooLarge",
+      "msg": "The lot is above a quarter of what the buyback vault holds"
+    },
+    {
+      "code": 6023,
+      "name": "FloorTooLow",
+      "msg": "The floor is below half the last sale's price"
+    },
+    {
+      "code": 6024,
+      "name": "LotTooSmall",
+      "msg": "The lot is smaller than the buyer's minimum"
+    },
+    {
+      "code": 6025,
+      "name": "VaultShort",
+      "msg": "The buyback vault can't cover the lot"
+    }
+  ],
+  "types": [
+    {
+      "name": "Auction",
+      "docs": [
+        "The buyback auction of one token (or SOL): the buyback vault's balance sold,",
+        "a lot at a time, for the project token, which the buyer burns from their own",
+        "wallet. The price, in the project token, for the whole lot, falls evenly",
+        "from `start_price` at `start_at` to `floor_price` over `decline_secs` and",
+        "holds there until `end_at`. No oracle: the falling price finds the market.",
+        "PDA `[\"auction\", lot_mint]` (`NATIVE_SOL` for SOL)."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "lot_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "lot",
+            "docs": [
+              "For sale now (0: nothing; an auction past `end_at` is over too)."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "start_price",
+            "type": "u64"
+          },
+          {
+            "name": "floor_price",
+            "type": "u64"
+          },
+          {
+            "name": "start_at",
+            "type": "i64"
+          },
+          {
+            "name": "decline_secs",
+            "type": "u32"
+          },
+          {
+            "name": "end_at",
+            "type": "i64"
+          },
+          {
+            "name": "min_lot",
+            "docs": [
+              "The admin's lowest rate: no floor prices the lot below `min_price` of",
+              "the project token per `min_lot` of it (`set_auction_floor`)."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "min_price",
+            "type": "u64"
+          },
+          {
+            "name": "last_lot",
+            "docs": [
+              "The last sale's lot, price and time: for `ANCHOR_SECS` after it, a new",
+              "floor is held to at least `FLOOR_ANCHOR_BPS` of its rate."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "last_price",
+            "type": "u64"
+          },
+          {
+            "name": "last_sold_at",
+            "type": "i64"
+          },
+          {
+            "name": "sold",
+            "docs": [
+              "Running totals: lots sold, what they paid out, the project token burned."
+            ],
+            "type": "u32"
+          },
+          {
+            "name": "paid_out",
+            "type": "u64"
+          },
+          {
+            "name": "burned",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AuctionFloorSet",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "lot_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "min_lot",
+            "type": "u64"
+          },
+          {
+            "name": "min_price",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AuctionStarted",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "lot_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "lot",
+            "type": "u64"
+          },
+          {
+            "name": "start_price",
+            "type": "u64"
+          },
+          {
+            "name": "floor_price",
+            "type": "u64"
+          },
+          {
+            "name": "start_at",
+            "type": "i64"
+          },
+          {
+            "name": "decline_secs",
+            "type": "u32"
+          },
+          {
+            "name": "end_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CupFunded",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "cup",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "guarantee",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CupKind",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Entries"
+          },
+          {
+            "name": "Board"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CupParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "kind",
+            "type": {
+              "defined": {
+                "name": "CupKind"
+              }
+            }
+          },
+          {
+            "name": "class",
+            "type": "u8"
+          },
+          {
+            "name": "entry_fee",
+            "type": "u64"
+          },
+          {
+            "name": "payout_bps",
+            "type": {
+              "vec": "u16"
+            }
+          },
+          {
+            "name": "guarantee",
+            "type": "u64"
+          },
+          {
+            "name": "starts_at",
+            "type": "i64"
+          },
+          {
+            "name": "ends_at",
+            "type": "i64"
+          },
+          {
+            "name": "max_entrants",
+            "type": "u32"
+          },
+          {
+            "name": "spec_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "featured_mint",
+            "docs": [
+              "The event's featured stock (`Pubkey::default()` = none)."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "host_share_bps",
+            "docs": [
+              "Community cups only: the host's share of the house fee."
+            ],
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "HouseChanged",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "HouseConfig",
+      "docs": [
+        "The house's settings. PDA `[\"house\"]`."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "pending_admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "keeper",
+            "docs": [
+              "May fund weekly cups (within the caps)."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "ops_wallet",
+            "docs": [
+              "Where the studio's share goes (its token accounts for SPL)."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "split",
+            "type": {
+              "defined": {
+                "name": "Split"
+              }
+            }
+          },
+          {
+            "name": "pending_split",
+            "docs": [
+              "A new split takes effect only after `split_after` (a public timelock)."
+            ],
+            "type": {
+              "defined": {
+                "name": "Split"
+              }
+            }
+          },
+          {
+            "name": "split_after",
+            "type": "i64"
+          },
+          {
+            "name": "token_mint",
+            "docs": [
+              "The project token, set ONCE (`Pubkey::default()` = none yet): its share of",
+              "fees is burned, and the buyback share of other tokens builds up for it."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "fund_max_bps",
+            "docs": [
+              "A funded cup's guarantee may take at most this share of the prize vault's",
+              "balance in that token, and at most once per `fund_every_secs`."
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "fund_every_secs",
+            "type": "u32"
+          },
+          {
+            "name": "pending_fund_max_bps",
+            "docs": [
+              "Looser caps, in force from `fund_caps_after` (the split's timelock; 0 =",
+              "nothing pending). Tighter ones apply at once."
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "pending_fund_every_secs",
+            "type": "u32"
+          },
+          {
+            "name": "fund_caps_after",
+            "type": "i64"
+          },
+          {
+            "name": "last_fund_at",
+            "docs": [
+              "When a cup was last funded (`i64::MIN`: never)."
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "paused",
+            "docs": [
+              "Stops sales and cup funding. Never stops sweeping or anything that pays out."
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "treasury_bump",
+            "type": "u8"
+          },
+          {
+            "name": "prize_bump",
+            "type": "u8"
+          },
+          {
+            "name": "buyback_bump",
+            "type": "u8"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "HouseParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "keeper",
+            "type": "pubkey"
+          },
+          {
+            "name": "ops_wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "split",
+            "type": {
+              "defined": {
+                "name": "Split"
+              }
+            }
+          },
+          {
+            "name": "fund_max_bps",
+            "type": "u16"
+          },
+          {
+            "name": "fund_every_secs",
+            "type": "u32"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LotBought",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "lot_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "lot",
+            "type": "u64"
+          },
+          {
+            "name": "price",
+            "docs": [
+              "The project token the buyer burned."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "buyer",
+            "type": "pubkey"
+          },
+          {
+            "name": "slot",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PendingToken",
+      "docs": [
+        "The project token, proposed and waiting out `TOKEN_TIMELOCK_SECS` before",
+        "anyone applies it to the house. PDA `[\"token\"]`."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "after",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PriceTable",
+      "docs": [
+        "Upgrade prices in one token: department × level 1-5, in base units",
+        "(0 = not for sale). PDA `[\"price\", mint]`; SOL is `mint = NATIVE_SOL`."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_program",
+            "type": "pubkey"
+          },
+          {
+            "name": "decimals",
+            "type": "u8"
+          },
+          {
+            "name": "prices",
+            "type": {
+              "array": [
+                {
+                  "array": [
+                    "u64",
+                    5
+                  ]
+                },
+                6
+              ]
+            }
+          },
+          {
+            "name": "enabled",
+            "type": "bool"
+          },
+          {
+            "name": "updated_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PricesSet",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "enabled",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Split",
+      "docs": [
+        "How every fee and sale is split by `sweep`, in bps of 10000."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "ops_bps",
+            "docs": [
+              "The studio's running costs: servers, the audit, development."
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "prize_bps",
+            "docs": [
+              "The prize vault: the weekly stock prizes and other funded cups."
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "buyback_bps",
+            "docs": [
+              "The project token's buyback (burned); until the token exists, prizes."
+            ],
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SplitApplied",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "split",
+            "type": {
+              "defined": {
+                "name": "Split"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "SplitProposed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "split",
+            "type": {
+              "defined": {
+                "name": "Split"
+              }
+            }
+          },
+          {
+            "name": "after",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Swept",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "to_ops",
+            "type": "u64"
+          },
+          {
+            "name": "to_prize",
+            "type": "u64"
+          },
+          {
+            "name": "to_buyback",
+            "type": "u64"
+          },
+          {
+            "name": "burned",
+            "docs": [
+              "The project token's buyback share, burned instead of kept."
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TokenMintApplied",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TokenMintProposed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "after",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Totals",
+      "docs": [
+        "Running totals per token, for anyone to read (the project page shows them).",
+        "PDA `[\"totals\", mint]`."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "swept_ops",
+            "type": "u64"
+          },
+          {
+            "name": "swept_prize",
+            "type": "u64"
+          },
+          {
+            "name": "swept_buyback",
+            "type": "u64"
+          },
+          {
+            "name": "burned",
+            "type": "u64"
+          },
+          {
+            "name": "funded",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UpgradeBought",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "dept",
+            "type": "u8"
+          },
+          {
+            "name": "level",
+            "type": "u8"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "price",
+            "type": "u64"
+          },
+          {
+            "name": "levels",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "slot",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Upgrades",
+      "docs": [
+        "A player's upgrade levels: one account per wallet, for every car look.",
+        "PDA `[\"upgrades\", owner]`. A fixed layout the arena program reads raw (the",
+        "levels snapshot of a GARAGE room): discriminator (8) | version (1) |",
+        "owner (32) | levels [u8; 8] (6 used, `src/game/upgrades.js` order: pu, aero,",
+        "tyre, brake, chassis, dur) | updated_at | bump. Never a token: levels can't",
+        "be sold or moved."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "version",
+            "type": "u8"
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "levels",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "updated_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}

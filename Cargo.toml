@@ -1,0 +1,21 @@
+[workspace]
+members = [
+    "programs/*"
+]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+# Must match the rustc inside Solana platform-tools (`cargo build-sbf --version`).
+rust-version = "1.89.0"
+
+[profile.release]
+# Overflow checks stay on: this program will move funds, and a wrapping add is
+# worth more than the compute units saved by turning them off.
+overflow-checks = true
+lto = "fat"
+codegen-units = 1
+[profile.release.build-override]
+opt-level = 3
+incremental = false
+codegen-units = 1

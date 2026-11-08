@@ -1,0 +1,16 @@
+{
+  "name": "acme-solana",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "push": "bash scripts/build-copy.sh push",
+    "pull": "bash scripts/build-copy.sh pull",
+    "build": "anchor build",
+    "client": "cd client && npm install --no-audit --no-fund && npm run build",
+    "lint": "cargo fmt --all -- --check && cargo clippy --workspace --all-targets -- -D warnings",
+    "test:svm": "cargo test --workspace",
+    "test:localnet": "anchor test --validator legacy --skip-build",
+    "check": "npm run build && npm run lint && npm run test:svm && npm run client && npm run test:localnet",
+    "pack": "cd client && rm -f *.tgz && npm pack"
+  }
+}
